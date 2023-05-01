@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "998509462332",
+    "firebase_url": "https://ta-yeli-2023-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "ta-yeli-2023",
+    "storage_bucket": "ta-yeli-2023.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:998509462332:android:364d0a93a6e16893359439",
+        "android_client_info": {
+          "package_name": "com.example.sunnily"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "998509462332-t19jn935sq2jsn3fsj9b8mlre58blt9b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA6J22t9xRXr1f9zPpfLl2Wlw-CK5kL6xE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "998509462332-t19jn935sq2jsn3fsj9b8mlre58blt9b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

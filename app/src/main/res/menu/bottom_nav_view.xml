@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/homeNavbar"
+        android:icon="@drawable/round_home"
+        android:title="home" />
+
+    <item
+        android:id="@+id/taskNavbar"
+        android:icon="@drawable/round_assignment"
+        android:title="assignment"
+        />
+
+    <item
+        android:id="@+id/profileNavbar"
+        android:icon="@drawable/round_profile"
+        android:title="profile"
+        />
+</menu>
+
