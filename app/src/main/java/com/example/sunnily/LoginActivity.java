@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -22,12 +23,12 @@ import com.google.firebase.ktx.Firebase;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText txtEmail, txtPassword;
+    private EditText txtEmail;
+    private TextInputEditText txtPassword;
     private Button blogin;
     private TextView txtSignup;
     protected static String usernm, newuser, mail, nama, formattedDate;
     protected static Integer status;
-
     private FirebaseAuth mAuth;
 
 

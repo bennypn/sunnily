@@ -1,6 +1,7 @@
 package com.example.sunnily;
 
 import static com.example.sunnily.LoginActivity.nama;
+import static com.example.sunnily.SignupActivity.name;
 import static com.example.sunnily.LoginActivity.newuser;
 import static com.example.sunnily.LoginActivity.formattedDate;
 import static com.example.sunnily.LoginActivity.usernm;
@@ -16,6 +17,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView tvNama, tvHum0, tvHum1, tvHum2, tvUv0, valHum0, valHum1, valHum2, valUv0;
     private long epoch;
 
-    protected static Float hum0, hum1, hum2, uv0, hum, uv;
+    protected static Float hum0, hum1, hum2, uv0, numHum0, numHum1, numHum2, numUv0;
     protected static String resHum0, resHum1, resHum2, resUv0;
 
     private FirebaseAuth mAuth;
@@ -77,6 +79,8 @@ public class MainActivity extends AppCompatActivity {
         SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault());
         formattedDate = df.format(c);
 
+        reader();
+
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
         DatabaseReference myRef1 = database.getReference("user").child(newuser).child("lastLogin");
@@ -86,57 +90,50 @@ public class MainActivity extends AppCompatActivity {
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                hum0 = snapshot.child("humid0").getValue(Float.class);
-                hum1 = snapshot.child("humid1").getValue(Float.class);
-                hum2 = snapshot.child("humid2").getValue(Float.class);
-                uv0 = snapshot.child("uv0").getValue(Float.class);
-
+                nama = snapshot.child("name").getValue(String.class);
                 if (nama != null) {
-                    tvNama.setText(String.valueOf(nama));
+                    tvNama.setText(nama);
                 }
 
+                btnHum0.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        /* barHum1.setProgress(hum1);
+                        barHum1.setMax(1000); */
+                        scanHum0();
+                    }
+                });
+                btnHum1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        /* barHum1.setProgress(hum1);
+                        barHum1.setMax(1000); */
+                        scanHum1();
+                    }
+                });
+
+                btnHum2.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        /*barHum2.setProgress(hum2);
+                        barHum2.setMax(1000);*/
+                        scanHum2();
+                    }
+                });
+
+                btnUv.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        /* barUv.setProgress(uv0);
+                        barUv.setMax(1000); */
+                        scanUv0();
+                    }
+                });
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-
-        btnHum0.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                        /* barHum0.setProgress(hum0);
-                        barHum0.setMax(1000); */
-                scanHum0();
-            }
-        });
-
-        btnHum1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                        /* barHum1.setProgress(hum1);
-                        barHum1.setMax(1000); */
-                scanHum1();
-            }
-        });
-
-        btnHum2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                        /*barHum2.setProgress(hum2);
-                        barHum2.setMax(1000);*/
-                scanHum2();
-            }
-        });
-
-        btnUv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                        /* barUv.setProgress(uv0);
-                        barUv.setMax(1000); */
-                scanUv0();
             }
         });
 
@@ -161,7 +158,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getSimpanData();
+                Toast.makeText(MainActivity.this,
+                        "Data Tersimpan", Toast.LENGTH_LONG).show();
             }
+
         });
 
     }
@@ -170,21 +170,7 @@ public class MainActivity extends AppCompatActivity {
     //Scan Humidity Pipi Kanan
     private void scanHum0() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("transaction");
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                hum0 = snapshot.child("humid").getValue(Float.class);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        myRef = database.getReference("user").child(newuser).child("humid0");
+        DatabaseReference myRef = database.getReference("user").child(newuser).child("humid0");
         myRef.setValue(hum0);
         tvHum0.setText(String.valueOf(hum0));
 
@@ -205,21 +191,7 @@ public class MainActivity extends AppCompatActivity {
     //Scan Humidity Pipi Kiri
     private void scanHum1() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("transaction");
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                hum1 = snapshot.child("humid").getValue(Float.class);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        myRef = database.getReference("user").child(newuser).child("humid1");
+        DatabaseReference myRef = database.getReference("user").child(newuser).child("humid1");
         myRef.setValue(hum1);
         tvHum1.setText(String.valueOf(hum1));
 
@@ -240,21 +212,7 @@ public class MainActivity extends AppCompatActivity {
     //Scan Humidity Jida
     private void scanHum2() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("transaction");
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                hum2 = snapshot.child("humid").getValue(Float.class);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        myRef = database.getReference("user").child(newuser).child("humid2");
+        DatabaseReference myRef = database.getReference("user").child(newuser).child("humid2");
         myRef.setValue(hum2);
         tvHum2.setText(String.valueOf(hum2));
 
@@ -275,21 +233,7 @@ public class MainActivity extends AppCompatActivity {
     //Scan Intensitas UV
     private void scanUv0() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("transaction");
-
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                uv0 = snapshot.child("uv").getValue(Float.class);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        myRef = database.getReference("user").child(newuser).child("uv0");
+        DatabaseReference myRef = database.getReference("user").child(newuser).child("uv0");
         myRef.setValue(uv0);
         tvUv0.setText(String.valueOf(uv0));
 
@@ -307,23 +251,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void getSimpanData(){
+    private void reader(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("user").child(newuser);
-
+        DatabaseReference myRef = database.getReference("transaction");
         myRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                /*hum0 = snapshot.child("humid0").getValue(Float.class);
-                hum1 = snapshot.child("humid1").getValue(Float.class);
-                hum1 = snapshot.child("humid1").getValue(Float.class);
-                uv0 = snapshot.child("uv0").getValue(Float.class);*/
-
-                resHum0 = snapshot.child("resHum0").getValue(String.class);
-                resHum1 = snapshot.child("resHum1").getValue(String.class);
-                resHum2 = snapshot.child("resHum2").getValue(String.class);
-                resUv0 = snapshot.child("resUv0").getValue(String.class);
-
+                hum0 = snapshot.child("humid").getValue(Float.class);
+                hum1 = snapshot.child("humid").getValue(Float.class);
+                hum2 = snapshot.child("humid").getValue(Float.class);
+                uv0 = snapshot.child("uv").getValue(Float.class);
             }
 
             @Override
@@ -332,16 +269,38 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        //History
-        myRef = database.getReference("user").child(newuser).child("history").child(""+epoch).child("humid0");
+        DatabaseReference myRef1 = database.getReference("user").child(newuser);
+        myRef1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                resHum0 = snapshot.child("resHum0").getValue(String.class);
+                resHum1 = snapshot.child("resHum1").getValue(String.class);
+                resHum2 = snapshot.child("resHum2").getValue(String.class);
+                resUv0 = snapshot.child("resUv0").getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    private void getSimpanData() {
+        reader();
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef;
+
+        myRef = database.getReference("user").child(newuser).child("history").child("" + epoch).child("humid0");
         myRef.setValue(resHum0);
-        myRef = database.getReference("user").child(newuser).child("history").child(""+epoch).child("humid1");
+        myRef = database.getReference("user").child(newuser).child("history").child("" + epoch).child("humid1");
         myRef.setValue(resHum1);
-        myRef = database.getReference("user").child(newuser).child("history").child(""+epoch).child("humid2");
+        myRef = database.getReference("user").child(newuser).child("history").child("" + epoch).child("humid2");
         myRef.setValue(resHum2);
-        myRef = database.getReference("user").child(newuser).child("history").child(""+epoch).child("uv0");
+        myRef = database.getReference("user").child(newuser).child("history").child("" + epoch).child("uv0");
         myRef.setValue(resUv0);
-        myRef = database.getReference("user").child(newuser).child("history").child(""+epoch).child("tanggal");
+        myRef = database.getReference("user").child(newuser).child("history").child("" + epoch).child("tanggal");
         myRef.setValue(formattedDate);
     }
 }

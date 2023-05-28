@@ -66,29 +66,51 @@
             android:paddingStart="16dp"
             android:paddingEnd="16dp" />
 
-        <EditText
-            android:id="@+id/txtPasswordSignup"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@color/cream"
-            android:hint="Kata Sandi"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp" />
+            app:passwordToggleEnabled="true"
+            app:hintEnabled="false"
+            android:defaultFocusHighlightEnabled="false">
 
-        <EditText
-            android:id="@+id/txtKonfirmPassword"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtPasswordSignup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="Kata Sandi"
+                android:textSize="18dp"
+                android:padding="8dp"
+                android:ems="10"
+                android:background="@color/cream"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:background="@color/cream"
-            android:ems="10"
-            android:hint="Ulang Kata Sandi"
-            android:inputType="textPassword"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp" />
+            app:passwordToggleEnabled="true"
+            app:hintEnabled="false"
+            android:defaultFocusHighlightEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtKonfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="Ulang Kata Sandi"
+                android:textSize="18dp"
+                android:padding="8dp"
+                android:ems="10"
+                android:background="@color/cream"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnSignup"

@@ -34,18 +34,27 @@
             android:background="@color/cream"
             android:hint="Email"/>
 
-        <EditText
-            android:id="@+id/txtPasswordLogin"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:ems="10"
-            android:drawableEnd="@drawable/outline_password"
-            android:inputType="textPassword"
-            android:background="@color/cream"
-            android:hint="Kata Sandi"/>
+            app:passwordToggleEnabled="true"
+            app:hintEnabled="false">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtPasswordLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:hint="Password"
+                android:textSize="18dp"
+                android:padding="8dp"
+                android:ems="10"
+                android:background="@color/cream"
+                android:textColor="@color/black" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/btnLogin"
