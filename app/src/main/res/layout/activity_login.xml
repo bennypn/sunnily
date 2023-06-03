@@ -16,10 +16,11 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="SUNN!LY"
-            android:textSize="40dp"
             android:fontFamily="@font/inter_extrabold"
-            android:textColor="@color/black"/>
+            android:text="SUNN!LY"
+            android:textColor="@color/black"
+            android:textSize="40dp"
+            />
 
         <EditText
             android:id="@+id/txtEmailLogin"
@@ -86,6 +87,7 @@
                 android:textColor="@color/blue"/>
 
         </LinearLayout>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -35,17 +35,16 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
+    //deklarasi variabel
+    //private untuk variabel yang hanya bisa di buka dalam file yang sama
     private ImageView btnHome, btnTask, btnProfil;
-    private ProgressBar barHum0, barHum1, barHum2, barUv;
     private Button btnHum0, btnHum1, btnHum2, btnUv, btnSimpan;
     private Integer CurrentProgress = 0;
     private TextView tvNama, tvHum0, tvHum1, tvHum2, tvUv0, valHum0, valHum1, valHum2, valUv0;
     private long epoch;
 
-    protected static Float hum0, hum1, hum2, uv0, numHum0, numHum1, numHum2, numUv0;
+    protected static Float hum0, hum1, hum2, uv0;
     protected static String resHum0, resHum1, resHum2, resUv0;
-
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,10 +52,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         tvNama = findViewById(R.id.TVnama);
-       /* barHum0 = findViewById(R.id.progressBarPipiKanan);
-        barHum1 = findViewById(R.id.progressBarPipiKiri);
-        barHum2 = findViewById(R.id.progressBarJidat);
-        barUv = findViewById(R.id.progressBarUV); */
         tvHum0 = findViewById(R.id.viewPipiKanan);
         tvHum1 = findViewById(R.id.viewPipiKiri);
         tvHum2 = findViewById(R.id.viewJidat);
@@ -74,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         btnTask = findViewById(R.id.btnTask2);
         btnProfil = findViewById(R.id.btnProfil2);
 
+        //tampilkan format tanggal dan waktu
         epoch = System.currentTimeMillis();
         Date c = Calendar.getInstance().getTime();
         SimpleDateFormat df = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault());
@@ -81,8 +77,10 @@ public class MainActivity extends AppCompatActivity {
 
         reader();
 
+        //koneksi ke firebase
         FirebaseDatabase database = FirebaseDatabase.getInstance();
 
+        //pembuatan variable yang terhubung dengan firebase
         DatabaseReference myRef1 = database.getReference("user").child(newuser).child("lastLogin");
         myRef1.setValue(formattedDate);
 
@@ -176,15 +174,15 @@ public class MainActivity extends AppCompatActivity {
 
         myRef = database.getReference("user").child(newuser).child("resHum0");
         //Category Humidity
-        if (hum0 <= 1) {
-            myRef.setValue("Buruk");
-            valHum0.setText("Buruk");
-        } else if (hum0 <= 3) {
-            myRef.setValue("Cukup");
-            valHum0.setText("Cukup");
+        if (hum0 <= 35) {
+            myRef.setValue("Kering");
+            valHum0.setText("Kering");
+        } else if (hum0 <= 55) {
+            myRef.setValue("Normal");
+            valHum0.setText("Normal");
         } else {
-            myRef.setValue("Baik");
-            valHum0.setText("Baik");
+            myRef.setValue("Lembab");
+            valHum0.setText("Lembab");
         }
     }
 
@@ -198,14 +196,14 @@ public class MainActivity extends AppCompatActivity {
         myRef = database.getReference("user").child(newuser).child("resHum1");
         //Category Humidity
         if (hum1 <= 1) {
-            myRef.setValue("Buruk");
-            valHum1.setText("Buruk");
-        } else if (hum1 <= 3) {
-            myRef.setValue("Cukup");
-            valHum1.setText("Cukup");
+            myRef.setValue("Kering");
+            valHum1.setText("Kering");
+        } else if (hum1 <= 55) {
+            myRef.setValue("Normal");
+            valHum1.setText("Normal");
         } else {
-            myRef.setValue("Baik");
-            valHum1.setText("Baik");
+            myRef.setValue("Lembab");
+            valHum1.setText("Lembab");
         }
     }
 
@@ -219,14 +217,14 @@ public class MainActivity extends AppCompatActivity {
         myRef = database.getReference("user").child(newuser).child("resHum2");
         //Category Humidity
         if (hum2 <= 1) {
-            myRef.setValue("Buruk");
-            valHum2.setText("Buruk");
-        } else if (hum2 <= 3) {
-            myRef.setValue("Cukup");
-            valHum2.setText("Cukup");
+            myRef.setValue("Kering");
+            valHum2.setText("Kering");
+        } else if (hum2 <= 55) {
+            myRef.setValue("Normal");
+            valHum2.setText("Normal");
         } else {
-            myRef.setValue("Baik");
-            valHum2.setText("Baik");
+            myRef.setValue("Lembab");
+            valHum2.setText("Lembab");
         }
     }
 
