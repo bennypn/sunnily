@@ -1,8 +1,10 @@
 package com.example.sunnily;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -23,35 +25,44 @@ import com.google.firebase.ktx.Firebase;
 
 public class LoginActivity extends AppCompatActivity {
 
+    //deklarasi tipe data dan variabel
     private EditText txtEmail;
     private TextInputEditText txtPassword;
     private Button blogin;
     private TextView txtSignup;
     protected static String usernm, newuser, mail, nama, formattedDate;
     protected static Integer status;
-    private FirebaseAuth mAuth;
-
+    private FirebaseAuth mAuth; //variable dan tipe data autentikasi firebase
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        //keluar ke home android
+        if (getIntent().getBooleanExtra("EXIT", false)) {
+            finish();
+        }
+
+        //koneksi autentikasi firebase
         mAuth = FirebaseAuth.getInstance();
 
+        //menghubungkan variable java dengan variable desain
         txtEmail = findViewById(R.id.txtEmailLogin);
         txtPassword = findViewById(R.id.txtPasswordLogin);
         blogin = findViewById(R.id.btnLogin);
         txtSignup = findViewById(R.id.txtToSignup);
 
-
+        //button login
         blogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //menjalankan fungsi login
                 loginUserAccount();
             }
         });
 
+        //tombol daftar untuk berpindah ke halaman daftar
         txtSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,15 +72,36 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void loginUserAccount() {
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Konfirmasi")
+                .setMessage("Apakah Anda ingin keluar dari aplikasi?")
+                .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.putExtra("EXIT", true);
+                        startActivity(intent);
+                        finish();
+                    }
+                })
+                .setNegativeButton("Tidak", null)
+                .show();
+    }
 
+
+    //fungsi login
+    private void loginUserAccount() {
+        //mengambil nilai input email dan password
         String email, password;
         email = txtEmail.getText().toString();
         password = txtPassword.getText().toString();
         newuser = email.substring(0, 5);
 
         status =1;
-
+        //autentikasi email dan password
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(getApplicationContext(),
                             "Please enter your name!!",
@@ -98,8 +130,6 @@ public class LoginActivity extends AppCompatActivity {
                                                     "Login successful!!",
                                                     Toast.LENGTH_LONG)
                                             .show();
-
-                                    // hide the progress bar
 
                                     // if sign-in is successful
                                     // intent to home activity

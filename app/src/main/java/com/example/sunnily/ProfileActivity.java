@@ -61,13 +61,13 @@ public class ProfileActivity extends AppCompatActivity {
 
                 //Deklarasi profil
                 if (nama != null) {
-                    txtNama.setText(nama + " !");
+                    txtNama.setText(nama);
                 }
                 if (usernm != null) {
-                    txtUname.setText(usernm + " !");
+                    txtUname.setText(usernm);
                 }
                 if (mail != null) {
-                    txtEmail.setText(mail + " !");
+                    txtEmail.setText(mail);
                 }
 
             }
@@ -104,8 +104,9 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
+    //logout account
     private void logoutAccount() {
-        //mAuth.signOut();
+        mAuth.signOut();
         Intent intent = new Intent(ProfileActivity.this, LoginActivity.class);
         startActivity(intent);
 

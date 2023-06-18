@@ -53,6 +53,7 @@ public class SignupActivity extends AppCompatActivity {
         bsignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 registerNewUser();
             }
         });

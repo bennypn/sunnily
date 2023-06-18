@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
     //private untuk variabel yang hanya bisa di buka dalam file yang sama
     private ImageView btnHome, btnTask, btnProfil;
     private Button btnHum0, btnHum1, btnHum2, btnUv, btnSimpan;
-    private Integer CurrentProgress = 0;
     private TextView tvNama, tvHum0, tvHum1, tvHum2, tvUv0, valHum0, valHum1, valHum2, valUv0;
     private long epoch;
 
+    protected static Float finHum0, finHum1, finHum2, finUv0;
     protected static Float hum0, hum1, hum2, uv0;
     protected static String resHum0, resHum1, resHum2, resUv0;
 
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
+        //button Home
         btnHome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -144,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //button Profile
         btnProfil.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -152,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //btnSimpan
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -174,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
 
         myRef = database.getReference("user").child(newuser).child("resHum0");
         //Category Humidity
+        //note: 7 kondisi
         if (hum0 <= 35) {
             myRef.setValue("Kering");
             valHum0.setText("Kering");
@@ -195,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
 
         myRef = database.getReference("user").child(newuser).child("resHum1");
         //Category Humidity
-        if (hum1 <= 1) {
+        if (hum1 <= 35) {
             myRef.setValue("Kering");
             valHum1.setText("Kering");
         } else if (hum1 <= 55) {
@@ -207,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //Scan Humidity Jida
+    //Scan Humidity Jidat
     private void scanHum2() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("user").child(newuser).child("humid2");
@@ -216,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
 
         myRef = database.getReference("user").child(newuser).child("resHum2");
         //Category Humidity
-        if (hum2 <= 1) {
+        if (hum2 <= 35) {
             myRef.setValue("Kering");
             valHum2.setText("Kering");
         } else if (hum2 <= 55) {
@@ -237,10 +240,10 @@ public class MainActivity extends AppCompatActivity {
 
         myRef = database.getReference("user").child(newuser).child("resUv0");
         //Category Humidity
-        if (uv0 <= 1) {
+        if (uv0 <= 3) {
             myRef.setValue("Buruk");
             valUv0.setText("Buruk");
-        } else if (uv0 <= 3) {
+        } else if (uv0 <= 2) {
             myRef.setValue("Cukup");
             valUv0.setText("Cukup");
         } else {
@@ -249,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //fungsi reader untuk membaca nilai dari transaction firbase kedalam variabel android
     private void reader(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("transaction");
@@ -275,6 +279,10 @@ public class MainActivity extends AppCompatActivity {
                 resHum1 = snapshot.child("resHum1").getValue(String.class);
                 resHum2 = snapshot.child("resHum2").getValue(String.class);
                 resUv0 = snapshot.child("resUv0").getValue(String.class);
+                finHum0 = snapshot.child("humid0").getValue(Float.class);
+                finHum1 = snapshot.child("humid1").getValue(Float.class);
+                finHum2 = snapshot.child("humid2").getValue(Float.class);
+                finUv0 = snapshot.child("uv0").getValue(Float.class);
             }
 
             @Override
@@ -284,6 +292,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //fungsi simpan data di histroy firebase
     private void getSimpanData() {
         reader();
 
@@ -291,13 +300,13 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference myRef;
 
         myRef = database.getReference("user").child(newuser).child("history").child("" + epoch).child("humid0");
-        myRef.setValue(resHum0);
+        myRef.setValue(finHum0 + " - " + resHum0);
         myRef = database.getReference("user").child(newuser).child("history").child("" + epoch).child("humid1");
-        myRef.setValue(resHum1);
+        myRef.setValue(finHum1 + " - " + resHum1);
         myRef = database.getReference("user").child(newuser).child("history").child("" + epoch).child("humid2");
-        myRef.setValue(resHum2);
+        myRef.setValue(finHum2 + " - " + resHum2);
         myRef = database.getReference("user").child(newuser).child("history").child("" + epoch).child("uv0");
-        myRef.setValue(resUv0);
+        myRef.setValue(finUv0 + " - " + resUv0);
         myRef = database.getReference("user").child(newuser).child("history").child("" + epoch).child("tanggal");
         myRef.setValue(formattedDate);
     }
