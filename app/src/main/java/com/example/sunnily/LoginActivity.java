@@ -98,7 +98,11 @@ public class LoginActivity extends AppCompatActivity {
         String email, password;
         email = txtEmail.getText().toString();
         password = txtPassword.getText().toString();
-        newuser = email.substring(0, 5);
+        int mailIndex = email.indexOf("@");
+
+        if (mailIndex != 1) {
+            newuser = email.substring(0, mailIndex);
+        }
 
         status =1;
         //autentikasi email dan password

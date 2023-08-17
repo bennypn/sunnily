@@ -43,41 +43,6 @@ public class ProfileActivity extends AppCompatActivity {
         btnTask = findViewById(R.id.btnTask3);
         btnProfil = findViewById(R.id.btnProfil3);
         blogout = findViewById(R.id.btnLogout);
-        txtNama = findViewById(R.id.txtNama);
-        txtUname = findViewById(R.id.txtUname);
-        txtEmail = findViewById(R.id.txtEmail);
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-
-        DatabaseReference myRef = database.getReference("user").child(newuser);
-        myRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                // Nama Harus String
-                usernm = snapshot.child("username").getValue(String.class);
-                mail = snapshot.child("email").getValue(String.class);
-                nama = snapshot.child("name").getValue(String.class);
-
-                //Deklarasi profil
-                if (nama != null) {
-                    txtNama.setText(nama);
-                }
-                if (usernm != null) {
-                    txtUname.setText(usernm);
-                }
-                if (mail != null) {
-                    txtEmail.setText(mail);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
 
         btnTask.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     //deklarasi variabel
     //private untuk variabel yang hanya bisa di buka dalam file yang sama
     private ImageView btnHome, btnTask, btnProfil;
-    private Button btnHum0, btnHum1, btnHum2, btnUv, btnSimpan;
+    private Button btnHum0, btnHum1, btnHum2, btnUv, btnSimpan,btnHis;
     private TextView tvNama, tvHum0, tvHum1, tvHum2, tvUv0, valHum0, valHum1, valHum2, valUv0;
     private long epoch;
 
@@ -65,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
         btnHum2 = findViewById(R.id.buttonJidat);
         btnUv = findViewById(R.id.buttonUV);
         btnSimpan = findViewById(R.id.buttonSimpan);
+        btnHis = findViewById(R.id.buttonHistory);
         btnHome = findViewById(R.id.btnHome2);
         btnTask = findViewById(R.id.btnTask2);
         btnProfil = findViewById(R.id.btnProfil2);
@@ -153,6 +154,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        btnHis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, HistoryActivity.class);
+                startActivity(i);
+            }
+        });
+
         //btnSimpan
         btnSimpan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -177,10 +186,10 @@ public class MainActivity extends AppCompatActivity {
         myRef = database.getReference("user").child(newuser).child("resHum0");
         //Category Humidity
         //note: 7 kondisi
-        if (hum0 <= 35) {
+        if (hum0 <= 3) {
             myRef.setValue("Kering");
             valHum0.setText("Kering");
-        } else if (hum0 <= 55) {
+        } else if (hum0 <= 5) {
             myRef.setValue("Normal");
             valHum0.setText("Normal");
         } else {
@@ -198,10 +207,10 @@ public class MainActivity extends AppCompatActivity {
 
         myRef = database.getReference("user").child(newuser).child("resHum1");
         //Category Humidity
-        if (hum1 <= 35) {
+        if (hum1 <= 3) {
             myRef.setValue("Kering");
             valHum1.setText("Kering");
-        } else if (hum1 <= 55) {
+        } else if (hum1 <= 5) {
             myRef.setValue("Normal");
             valHum1.setText("Normal");
         } else {
@@ -219,10 +228,10 @@ public class MainActivity extends AppCompatActivity {
 
         myRef = database.getReference("user").child(newuser).child("resHum2");
         //Category Humidity
-        if (hum2 <= 35) {
+        if (hum2 <= 3) {
             myRef.setValue("Kering");
             valHum2.setText("Kering");
-        } else if (hum2 <= 55) {
+        } else if (hum2 <= 5) {
             myRef.setValue("Normal");
             valHum2.setText("Normal");
         } else {
@@ -240,13 +249,13 @@ public class MainActivity extends AppCompatActivity {
 
         myRef = database.getReference("user").child(newuser).child("resUv0");
         //Category Humidity
-        if (uv0 <= 3) {
+        if (uv0 >= 3) {
             myRef.setValue("Buruk");
             valUv0.setText("Buruk");
-        } else if (uv0 <= 2) {
+        } else if (uv0 >= 0.6) {
             myRef.setValue("Cukup");
             valUv0.setText("Cukup");
-        } else {
+        } else if (uv0 < 0.6) {
             myRef.setValue("Baik");
             valUv0.setText("Baik");
         }

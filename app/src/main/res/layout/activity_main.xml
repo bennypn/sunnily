@@ -32,8 +32,8 @@
         app:layout_constraintTop_toBottomOf="@+id/topbar">
 
         <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent">
+            android:layout_width="match_parent"
+            android:layout_height="710dp">
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -430,19 +430,40 @@
                         android:text="Scan"
                         android:textAllCaps="false" />
                 </LinearLayout>
-                <Button
-                    android:id="@+id/buttonSimpan"
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/layoutUV"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginRight="16dp"
-                    android:backgroundTint="@color/brown"
-                    android:text="Simpan Data"
-                    android:textAllCaps="false" />
+                    android:layout_below="@id/layoutUV"
+                    android:layout_margin="16dp"
+                    android:background="@color/cream"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <Button
+                        android:id="@+id/buttonSimpan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:backgroundTint="@color/brown"
+                        android:text="Simpan Data"
+                        android:textAllCaps="false" />
+
+                    <Button
+                        android:id="@+id/buttonHistory"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
+                        android:backgroundTint="@color/brown"
+                        android:textAllCaps="false"
+                        android:text="History" />
+                </LinearLayout>
             </RelativeLayout>
 
         </ScrollView>
+
     </RelativeLayout>
 
     <FrameLayout
